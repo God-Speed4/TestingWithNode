@@ -63,7 +63,6 @@ if(qBox) {
         var quizDate;
         var quizScore;
         //var allScores = result.scores.sort(
-        console.log(typeof(result));
         for(let i = 0; i < result.scores.length; i++) {
             quizName = result.scores[i].quiz;
             quizDate = result.scores[i].dateTaken;
