@@ -18,18 +18,6 @@ async function main() {
         // Will connect to database as soon as user enters the site.
         await client.connect();
 
-        // gets list of databases.
-        //await listDatabases(client);
-
-        // Creating listing, calling function to create list.
-        // await createListing(client, {
-        //     name:"Lovely Loft",
-        //     summary: "A charming loft in paris",
-        //     bedrooms:1,
-        //     bathrooms:1
-        // })
-
-        await findOneListingByName(client, "HST01");
     } catch (e) {
         console.error(e);
     } finally {
@@ -75,6 +63,27 @@ async function findOneListingByName(client, nameOfListing) {
         console.log(`No listings found with the name '${nameOfListing}'`);
     }
 }
+
+
+// READ (find listing)
+async function findOneStudentByName(client, sEmail) {
+    const result = await client
+        .db("Quiz-Capstone")
+        .collection("students")
+        .findOne({ email: sEmail });
+
+    if (result) {
+        console.log(
+            `Found a listing in the collection with the name '${sEmail}'`
+        );
+        console.log(result);
+        return result;
+    } else {
+        console.log(`No listings found with the name '${sEmail}'`);
+    }
+}
+
+
 
 // calling main and catching for errors if any
 main().catch(console.error);
@@ -124,6 +133,20 @@ app.get("/CIS01", (req, res) => {
         res.send(`${JSON.stringify(result)}`);
     });
 });
+
+app.get("/qPage"), (req, res) => {
+    findOneStudentByName(client, "matthewjstewart@lewisu.edu").then(function(result) {
+        res.type("application/json");
+        res.send(`${JSON.stringify(result)}`);
+        
+    });
+}
+
+
+
+
+
+
 
 // https request
 exports.app = functions.https.onRequest(app);

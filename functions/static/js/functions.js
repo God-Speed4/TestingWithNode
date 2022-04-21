@@ -14,6 +14,19 @@ let btnScience1 = document.getElementById("btnScience1");
 let btnScience2 = document.getElementById("btnScience2");
 let btnHistory1 = document.getElementById("btnHistory1");
 let btnEngineering1 = document.getElementById("btnEngineering1");
+let btnTest = document.getElementById("testbtn");
+let testP = document.getElementById("testing");
+
+
+
+async function fetchQuizData() {
+    const mongoData = await fetch("qPage");
+    const responseMongo = await mongoData.json();
+    return responseMongo;
+}
+
+
+
 
 // fetching app/mongo route.
 async function fetchHST01() {
@@ -41,6 +54,13 @@ async function fetchCIS01() {
     const mongoData = await fetch("CIS01");
     const responseMongo = await mongoData.json();
     return responseMongo;
+}
+
+if(testP) {
+    fetchHST01().then(function(result) {
+            document.getElementById("pageHeading").innerHTML = result.email;       
+    })
+    
 }
 
 if (btnHistory1) {
