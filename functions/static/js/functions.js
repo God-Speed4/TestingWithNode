@@ -58,20 +58,65 @@ async function fetchCIS01() {
 
 if(qBox) {
     fetchQuizData().then(function(result) {
-        var rList = document.createElement("ol");
-        for(let i = 0; i < result.scores.length; i++)
-        {
-            var quizName = result.scores[i].quiz;
-            var quizDate = result.scores[i].dateTaken;
-            var quizScore = result.scores[i].score;
-            var item = document.createElement("li");
-            item.innerHTML = quizName + "\t" + quizDate + "\t" + quizScore;
-            rList.appendChild(item);
+        var rTable = document.getElementById("rTable");
+        var quizName;
+        var quizDate;
+        var quizScore;
+        //var allScores = result.scores.sort(
+        console.log(typeof(result));
+        for(let i = 0; i < result.scores.length; i++) {
+            quizName = result.scores[i].quiz;
+            quizDate = result.scores[i].dateTaken;
+            quizDate = quizDate.toString();
+            quizDate = quizDate.substr(0,10);
+            quizScore = result.scores[i].score;
+            var rRow = document.createElement("tr");
+            var item1, item2, item3;
+            item1 = document.createElement("td");
+            item2 = document.createElement("td");
+            item3 = document.createElement("td");
+            
+            item1.innerHTML = quizName;
+            item2.innerHTML = quizDate;
+            item3.innerHTML = quizScore;
+            rRow.appendChild(item1);
+            rRow.appendChild(item2);
+            rRow.appendChild(item3);
+            rTable.appendChild(rRow);
         }
-            document.getElementById("quizBox").appendChild(rList);       
+        
     })
-    
 }
+
+// rRow = document.createElement("tr");
+//             var item1 = dcoument.createElement("td");
+//             item1.innerHTML = quizName;
+//             rRow.appendChild(item1);
+//             var item2 = document.createElement("td");
+//             item2.innerHTML = quizDate;
+//             rRow.appendChild(item2);
+//             var item3 = document.createElement("td");
+//             item3.innerHTML = quizScore;
+//             rRow.appendChild(item3);
+//             rTable.appendChild(rRow);
+
+
+// if(qBox) {
+//     fetchQuizData().then(function(result) {
+//         var rList = document.createElement("ol");
+//         for(let i = 0; i < result.scores.length; i++)
+//         {
+//             var quizName = result.scores[i].quiz;
+//             var quizDate = result.scores[i].dateTaken;
+//             var quizScore = result.scores[i].score;
+//             var item = document.createElement("li");
+//             item.innerHTML = quizName + "\t" + quizDate + "\t" + quizScore;
+//             rList.appendChild(item);
+//         }
+//             document.getElementById("quizBox").appendChild(rList);       
+//     })
+    
+// }
 
 if (btnHistory1) {
     // call back function from fetchMongoData (necessary for async functions)/
