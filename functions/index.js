@@ -4,16 +4,11 @@ const app = express();
 const path = require("path");
 const { MongoClient, Db } = require("mongodb");
 
-const uri =
-    "mongodb+srv://HenriA:HenrisPassword@quizcluster.5oc2z.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = "mongodb+srv://HenriA:HenrisPassword@quizcluster.5oc2z.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
 app.use(express.static(path.join(__dirname, "static")));
 
 async function main() {
-    //const uri = "mongodb+srv://QuizMaster:QuizMasterPass@cluster0.jm17e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-    //const client = new MongoClient(uri);
-
     try {
         // Will connect to database as soon as user enters the site.
         await client.connect();
@@ -57,7 +52,7 @@ async function findOneListingByName(client, nameOfListing) {
         console.log(
             `Found a listing in the collection with the name '${nameOfListing}'`
         );
-        console.log(result);
+        //console.log(result);
         return result;
     } else {
         console.log(`No listings found with the name '${nameOfListing}'`);
@@ -66,17 +61,17 @@ async function findOneListingByName(client, nameOfListing) {
 
 
 // READ (find listing)
-async function findOneStudentByName(client, sEmail) {
+async function findStudent(client, sEmail) {
     const result = await client
         .db("Quiz-Capstone")
-        .collection("students")
-        .findOne({ email: sEmail });
+        .collection("Student")
+        .findOne({ studentEmail: sEmail });
 
     if (result) {
         console.log(
             `Found a listing in the collection with the name '${sEmail}'`
         );
-        console.log(result);
+        //console.log(result);
         return result;
     } else {
         console.log(`No listings found with the name '${sEmail}'`);
@@ -134,17 +129,13 @@ app.get("/CIS01", (req, res) => {
     });
 });
 
-app.get("/qPage"), (req, res) => {
-    findOneStudentByName(client, "matthewjstewart@lewisu.edu").then(function(result) {
+
+app.get("/qPage", (req, res) => {
+    findStudent(client, "matthewjstewart@lewisu.edu").then(function(result) {
         res.type("application/json");
         res.send(`${JSON.stringify(result)}`);
-        
     });
-}
-
-
-
-
+});
 
 
 

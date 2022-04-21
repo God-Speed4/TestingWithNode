@@ -15,7 +15,7 @@ let btnScience2 = document.getElementById("btnScience2");
 let btnHistory1 = document.getElementById("btnHistory1");
 let btnEngineering1 = document.getElementById("btnEngineering1");
 let btnTest = document.getElementById("testbtn");
-let testP = document.getElementById("testing");
+let qBox = document.getElementById("quizBox");
 
 
 
@@ -56,9 +56,19 @@ async function fetchCIS01() {
     return responseMongo;
 }
 
-if(testP) {
-    fetchHST01().then(function(result) {
-            document.getElementById("pageHeading").innerHTML = result.email;       
+if(qBox) {
+    fetchQuizData().then(function(result) {
+        var rList = document.createElement("ol");
+        for(let i = 0; i < result.scores.length; i++)
+        {
+            var quizName = result.scores[i].quiz;
+            var quizDate = result.scores[i].dateTaken;
+            var quizScore = result.scores[i].score;
+            var item = document.createElement("li");
+            item.innerHTML = quizName + "\t" + quizDate + "\t" + quizScore;
+            rList.appendChild(item);
+        }
+            document.getElementById("quizBox").appendChild(rList);       
     })
     
 }
